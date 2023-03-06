@@ -7,8 +7,7 @@ POST {{authors}}/1
 Content-Type: application/json
 
 {
-    "name":"Xasanboy",
-    "authorID":1
+    "name":"George Washington"
 }
 
 ###
@@ -17,12 +16,12 @@ Content-Type: application/json
 
 {
     "authorID":1,
-    "name":"Xasanboy"
+    "name":"Xusinboy"
 }
 ###
 DELETE {{authors}}/1
 Content-Type: application/json
 
 {
-    "authorID":1
+    "authorID":3
 }

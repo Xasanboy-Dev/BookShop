@@ -1,4 +1,35 @@
-@books=http://localhost:8080
+@books=http://localhost:8080/books
 
 
-GET {{books}}/books HTTP/1.1
+GET {{books}}/ HTTP/1.1
+
+###
+POST {{books}}/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "page":156,
+    "description":"Very Interestiong book!",
+    "title":"For children",
+    "authorID":5,
+    "userID":1
+}
+###
+PUT {{books}}/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "userID":1,
+    "page":156,
+    "description":"This is a horror story!",
+    "title":"For me",
+    "authorID":5,
+    "bookID":4
+}
+###
+DELETE {{books}}/1
+Content-Type: application/json
+
+{
+    "bookID":1
+}

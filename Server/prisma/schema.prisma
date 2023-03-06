@@ -12,7 +12,7 @@ datasource db {
 
 model books {
   id          Int      @id @default(autoincrement())
-  createdDate DateTime
+  createdDate DateTime @default(now())
   page        Int
   desc        String?
   title       String

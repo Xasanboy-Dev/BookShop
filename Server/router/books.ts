@@ -1,10 +1,16 @@
 import { Router } from "express";
-import { getBooks } from "../controller/books";
-    
-const router = Router()
+import {
+  createBook,
+  deleteBook,
+  editBook,
+  findBooks,
+} from "../controller/books";
 
-router.get('/',getBooks)
-router.post("/",)
+const router = Router();
 
+router.get("/", findBooks);
+router.post("/:userID", createBook);
+router.put("/:id", editBook);
+router.delete("/:id", deleteBook);
 
-export default router
+export default router;
