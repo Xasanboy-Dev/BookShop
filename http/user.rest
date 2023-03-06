@@ -1,0 +1,15 @@
+@user=http://localhost:8080
+
+###
+GET {{user}}/user HTTP/1.1
+
+###
+POST {{user}}/user
+Content-Type: application/json
+
+{
+    "name":"Xasanboy",
+    "surname":"Abdurasulov",
+    "email":"hasan@gmail.com",
+    "password":991458473
+}

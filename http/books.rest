@@ -1,0 +1,4 @@
+@books=http://localhost:8080
+
+
+GET {{books}}/books HTTP/1.1

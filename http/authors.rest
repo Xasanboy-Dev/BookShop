@@ -1,0 +1,28 @@
+@authors=http://localhost:8080/author
+
+GET {{authors}}/ HTTP/1.1
+
+###
+POST {{authors}}/1
+Content-Type: application/json
+
+{
+    "name":"Xasanboy",
+    "authorID":1
+}
+
+###
+PUT {{authors}}/1
+Content-Type: application/json
+
+{
+    "authorID":1,
+    "name":"Xasanboy"
+}
+###
+DELETE {{authors}}/1
+Content-Type: application/json
+
+{
+    "authorID":1
+}
