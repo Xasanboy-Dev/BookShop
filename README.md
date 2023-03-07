@@ -16,3 +16,8 @@ Content-Type:application/json
 }
 ```
 And then you can edit your DATA
+
+```shell
+PUT http://localhost:8080/user/1
+Content-Type:application/json
+```
