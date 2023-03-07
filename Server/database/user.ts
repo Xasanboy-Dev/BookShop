@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { findAuthors } from "./author";
 const prisma = new PrismaClient();
 
 export async function getUser() {
@@ -58,3 +59,14 @@ export async function updatedUserByID(data: {
     },
   });
 }
+
+export async function deleteUser(id: number) {
+  const authors = await findAuthors();
+  for (let i in authors) {
+    if (authors[i].createdUser == id) {
+      await deleteUser(authors[i].id);
+    }
+  }
+  return await prisma.user.delete({ where: { id } });
+}
+

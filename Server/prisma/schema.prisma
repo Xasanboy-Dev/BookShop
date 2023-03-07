@@ -18,6 +18,7 @@ model books {
   title       String
   userID      Int
   authorID    Int
+  authorName  String
 }
 
 model author {

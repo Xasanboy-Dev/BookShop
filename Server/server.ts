@@ -10,6 +10,7 @@ import authors from "./router/author"
 const server = express()
 const PORT = process.env.PORT
 
+server.use("/images", express.static("./booksImage"));
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
 server.use(cors())

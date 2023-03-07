@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
+import { Sign } from "../database/token";
 import {
   checkUserByEmail,
   getUser,
   addUser,
   checkUserExist,
   updatedUserByID,
+  deleteUser,
 } from "../database/user";
 
 export async function getUsers(req: Request, res: Response) {
@@ -67,8 +69,30 @@ export async function deleteUserByID(req: Request, res: Response) {
     if (!user) {
       return res.status(500).json({ message: "Internal error" });
     }
+    const deletedUser = await deleteUser(+id);
+    res.status(200).json({ message: "Deleted succesfully", user: deletedUser });
   } catch (error: any) {
     console.log(error.message);
     res.status(500).json({ message: "Internal errir" });
+  }
+}
+
+export async function LoginUser(req: Request, res: Response) {
+  try {
+    const { email, password } = req.body;
+    const user = await checkUserByEmail(email);
+    if (!user) {
+      return res.status(404).json({ message: "Your email is not exist!" });
+    }
+    if (user.password !== password) {
+      return res
+        .status(409)
+        .json({ message: "You must to input correct data!" });
+    }
+    const token = await Sign(user.email, user.name, user.password);
+    res.status(200).json({ message: "Token", token, userID: user.id });
+  } catch (error: any) {
+    console.log(error.message);
+    res.status(500).json({ message: "Internal error" });
   }
 }

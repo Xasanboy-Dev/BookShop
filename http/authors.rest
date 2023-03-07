@@ -7,7 +7,7 @@ POST {{authors}}/1
 Content-Type: application/json
 
 {
-    "name":"George Washington"
+    "name":"Xasanboy Abdurasulov"
 }
 
 ###

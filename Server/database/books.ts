@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import { getAuthors } from "../controller/author";
+import { getAuthorByID } from "./author";
 const prisma = new PrismaClient();
 
 export async function getBooks() {
@@ -12,6 +14,7 @@ export async function CreateBook(
   authorID: number,
   userID: number
 ) {
+  let author = await getAuthorByID(authorID);
   return await prisma.books.create({
     data: {
       authorID,
@@ -19,6 +22,7 @@ export async function CreateBook(
       title,
       userID,
       desc: description,
+      authorName: author ? author.name : "",
     },
   });
 }

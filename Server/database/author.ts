@@ -37,3 +37,7 @@ export async function deleteAuthor(authorID: number) {
   }
   return await prisma.author.delete({ where: { id: authorID } });
 }
+
+export async function getAuthorByID(id: number) {
+  return await prisma.author.findUnique({ where: { id } });
+}
