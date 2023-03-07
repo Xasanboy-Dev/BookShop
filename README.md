@@ -10,6 +10,9 @@ Content-Type:application/json
 
 {
    "name":"John",
-   "surname":"Doe"
+   "surname":"Doe",
+   "email":"JohnDoe@gmail.com",
+   "password":"password"
 }
 ```
+And then you can edit your DATA
