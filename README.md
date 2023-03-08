@@ -4,7 +4,7 @@
 GET http://localhopst:5173 HTTP/1.1
 ```
 Create a new User
-```shell
+```http
 POST http://localhost:8080/user HTTP/1.1
 Content-Type:application/json
 
@@ -17,7 +17,11 @@ Content-Type:application/json
 ```
 And then you can edit your DATA
 
-```shell
+```http
 PUT http://localhost:8080/user/1
+Content-Type:application/json
+```
+```http
+DELETE http://localhost:8080/user/:id
 Content-Type:application/json
 ```
