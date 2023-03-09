@@ -59,3 +59,18 @@ export async function LoginFile(email: string, password: string) {
     return error;
   }
 }
+
+export async function checkTokenValid(token: string) {
+  if (!token) {
+    return (window.location.href = "/login");
+  } else {
+    const response = await axios.post("http://localhost:8080/user/token", {
+      token: JSON.parse(token).id,
+    });
+    if (response.status == 200) {
+      return response.data.message;
+    } else {
+      return (window.location.href = "/login");
+    }
+  }
+}

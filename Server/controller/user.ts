@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Sign } from "../database/token";
+import { Sign, Verify } from "../database/token";
 import {
   checkUserByEmail,
   getUser,
@@ -91,6 +91,25 @@ export async function LoginUser(req: Request, res: Response) {
     }
     const token = await Sign(user.email, user.name, user.password);
     res.status(200).json({ message: "Token", token, userID: user.id });
+  } catch (error: any) {
+    console.log(error.message);
+    res.status(500).json({ message: "Internal error" });
+  }
+}
+
+export async function checkToken(req: Request, res: Response) {
+  try {
+    if (req.body.token) {
+      const token = req.body.token;
+      const validToken = await Verify(token);
+      if (!validToken) {
+        return res.status(404).json({ message: "You must to login!" });
+      } else {
+        return res.status(200).json({ message: "All good!" });
+      }
+    } else {
+      return res.status(404).json({ message: "You must to login!" });
+    }
   } catch (error: any) {
     console.log(error.message);
     res.status(500).json({ message: "Internal error" });
