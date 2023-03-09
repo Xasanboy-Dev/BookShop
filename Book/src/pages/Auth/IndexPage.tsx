@@ -1,6 +1,6 @@
 import { Book } from "../../modules/module"
 import { useEffect, useState } from "react"
-import { getBooks } from "../../TypescriptFiles/books"
+import { getBooks, removeBook } from "../../TypescriptFiles/books"
 
 export default function IndexPage({ darkMode }: { darkMode: Boolean }) {
     let userID = JSON.parse(localStorage.getItem("uuid")!).userID
@@ -11,6 +11,14 @@ export default function IndexPage({ darkMode }: { darkMode: Boolean }) {
             setBooks(res)
         })
     }, [])
+
+    async function deleteBook(id: number, userID: number) {
+        const result = await removeBook(id, userID)
+        alert(result)
+        window.location.href = '/'
+        return
+    }
+
     return (
         <div style={{ height: innerHeight }} className={`text-[#85A9BF] bg-${darkMode ? "light" : 'dark'}`}>
             <h1 className="text-center text-4xl p-5">
@@ -23,8 +31,8 @@ export default function IndexPage({ darkMode }: { darkMode: Boolean }) {
                         <h1 className="text-2xl">{book.title}</h1>
                         <img src={`http://localhost:8080/images/2023-03-06T192945.341Z-1.jpg`} />
                         <div className="flex justify-content-between px-3">
-                            <button className={`border cursor-pointer border-${darkMode ? "dark" : "light"} px-3 py-2 mt-1 rounded text-light bg-green-700`}>Read</button>
-                            <button style={{ display: book.userID == userID ? 'flex' : 'none' }} className={`border cursor-pointer border-${darkMode ? "dark" : "light"} px-3 py-2 mt-1 rounded text-light bg-red-700`}>Delete</button>
+                            <button onClick={() => alert(`clicked in ${book.id}`)} className={`border cursor-pointer border-${darkMode ? "dark" : "light"} px-3 py-2 mt-1 rounded text-light bg-green-700`}>About</button>
+                            <button style={{ display: book.userID == userID ? 'flex' : 'none' }} onClick={() => deleteBook(book.id, userID)} className={`border cursor-pointer border-${darkMode ? "dark" : "light"} px-3 py-2 mt-1 rounded text-light bg-red-700`}>Delete</button>
                         </div>
                     </div>
                 ))}

@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Author } from "./../../modules/module"
 import { getAuthor } from "../../TypescriptFiles/author"
 import { checkTokenValid } from "../../TypescriptFiles/Auth"
+import axios from "axios"
+import { async } from "@firebase/util"
 
 const addBook = ({ darkMode }: { darkMode: Boolean }) => {
     let [title, setTitle] = useState("")
@@ -27,14 +29,25 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
         })
     }, [])
 
-    let [url, setUrl] = useState<any>(null)
+    let [url, setUrl] = useState("")
 
-    function onChange(e: any) {
+    function onhange(e: any | null) {
         setUrl(window.URL.createObjectURL(e.target.files[0]))
     }
 
-    function createBook(title: string, author: string, date: string, pageNum: number, desc: string) {
-
+    async function createBook(userID: number, title: string, author: string, date: string, pageNum: number, desc: string, image: string) {
+        if (!title || !author || !date || !pageNum || !desc) {
+            alert("You must to fill all the gaps!")
+            return
+        } else {
+            const response = await axios.post(`http://localhost:8080/books/${userID}`, {
+                page,
+                description:desc,
+                title,
+                author ,
+                user.id
+            })
+        }
     }
     return (
         <div style={{ height: innerHeight }} className={` text-[#a3cbe3] bg-${darkMode ? "light" : "dark"}`}>
@@ -68,9 +81,9 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
                 <div className="flex gap-5 m-5 text-2xl">
                     <div className={`border rounded border-${darkMode ? "dark" : "light"} text-[#a3cbe3] bg-${darkMode ? "light" : "dark"}`}>
                         <label htmlFor="file-upload" className="h-[150px] w-[150px] m-2 bg-dark custom-file-upload">
-                            <img src={`${url}`} className={`h-[150px] w-[150px]`} style={{ display: url !== "" ? "flex" : "block" }} />
+                            <img src={`${url}`} className={`h-[150px] w-[150px]`} style={{ display: url !== "" ? "flex" : "none" }} />
                         </label>
-                        <input onChange={(e) => onChange(setUrl(e.target.files[0]))} accept="image/*" id="file-upload" type="file" />
+                        <input onChange={(e) => onhange(e)} accept="image/*" id="file-upload" type="file" />
                     </div>
                     <div>
                         <span>Description</span>
@@ -79,7 +92,7 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
                 </div>
                 <div className="flex justify-content-center gap-5">
                     <button onClick={() => window.location.href = '/'} className="border text-light rounded py-1 px-3 flex  items-center bg-red-700">Cancel</button>
-                    <button onClick={() => { }} className="border text-light rounded py-1 px-3 flex  items-center bg-green-700 ">Create</button>
+                    <button onClick={() => createBook(title, author, date, +page, desc, url)} className="border text-light rounded py-1 px-3 flex  items-center bg-green-700 ">Create</button>
                 </div>
             </div>
         </div >

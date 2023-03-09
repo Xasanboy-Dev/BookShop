@@ -93,8 +93,8 @@ export async function deleteBook(req: Request, res: Response) {
     if (!user) {
       return res.status(404).json({ message: "You must to login!" });
     }
-    const { bookID } = req.body
-    const book = await checkBookExist(+bookID);
+    const bookID = req.headers.authorization;
+    const book = await checkBookExist(+bookID!);
     if (!book) {
       return res.status(404).json({ message: "Book is not exist!" });
     }
