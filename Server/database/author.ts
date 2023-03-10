@@ -5,11 +5,18 @@ const prisma = new PrismaClient();
 export async function findAuthors() {
   return await prisma.author.findMany();
 }
-export async function postAuthor(userID: number, authorName: string) {
+export async function postAuthor(
+  userID: number,
+  authorName: string,
+  wasBorn: string,
+  wasDied: string
+) {
   return await prisma.author.create({
     data: {
       name: authorName,
       createdUser: userID,
+      wasBorn,
+      wasDied: wasDied ? wasDied : "",
     },
   });
 }

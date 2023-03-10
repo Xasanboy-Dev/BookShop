@@ -28,6 +28,8 @@ model author {
   createdUser Int
   createdDate DateTime @default(now())
   authorImage String   @default("https://placeimg.com/380/230/nature")
+  wasBorn     String
+  wasDied     String?
 }
 
 model user {

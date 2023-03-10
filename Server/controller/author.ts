@@ -26,10 +26,10 @@ export async function createAuthor(req: Request, res: Response) {
     if (!user) {
       return res.status(404).json({ message: "You must to login!" });
     }
-    const { name } = req.body;
+    const { name, wasBorn, wasDied } = req.body;
     const checkName = await checkAuthorByName(name);
     if (!checkName) {
-      const author = await postAuthor(user.id, name);
+      const author = await postAuthor(user.id, name, wasBorn, wasDied);
       return res.status(201).json({ message: "Created succesfully", author });
     }
     res.status(409).json({ message: "Your author is already exist!" });
@@ -64,12 +64,10 @@ export async function editAuthor(req: Request, res: Response) {
     }
     const editingName = await checkAuthorByName(name);
     if (editingName) {
-      return res
-        .status(409)
-        .json({
-          message:
-            "Your author is already exist. You must to rename to another one!",
-        });
+      return res.status(409).json({
+        message:
+          "Your author is already exist. You must to rename to another one!",
+      });
     }
     const editedAuthor = await renameAuthor(+id, name);
     res.status(200).json({
@@ -91,10 +89,10 @@ export async function deletedAuthor(req: Request, res: Response) {
         .status(404)
         .json({ message: "You can n't remove someone's author!" });
     }
-    const authorID = req.headers.authorization
+    const authorID = req.headers.authorization;
     if (!authorID) {
-      res.status(404).json({ message: "Author is not given!" })
-      return
+      res.status(404).json({ message: "Author is not given!" });
+      return;
     }
     const author = await checkAuthorExist(+authorID);
     if (!author) {

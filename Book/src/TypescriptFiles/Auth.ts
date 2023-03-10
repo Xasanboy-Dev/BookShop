@@ -61,21 +61,27 @@ export async function LoginFile(email: string, password: string) {
 }
 
 export async function checkTokenValid(token: string) {
-  if (!token) {
-    return (window.location.href = "/login");
-  } else {
-    const res = await axios.post("http://localhost:8080/user/token", {
-      token: JSON.parse(token).id,
-    });
-    if (res.status == 200) {
-      let data = res.data.validToken
-      const response = await axios.get(`http://localhost:8080/user/${data.email}`)
-      if (response.status !== 200) {
-        return window.location.href = '/login'
-      }
-      return response.data.user.id
-    } else {
+  try {
+    if (!token) {
       return (window.location.href = "/login");
+    } else {
+      const res = await axios.post("http://localhost:8080/user/token", {
+        token: JSON.parse(token).id,
+      });
+      if (res.status == 200) {
+        let data = res.data.validToken;
+        const response = await axios.get(
+          `http://localhost:8080/user/${data.email}`
+        );
+        if (response.status !== 200) {
+          return (window.location.href = "/login");
+        }
+        return response.data.user.id;
+      } else {
+        return (window.location.href = "/login");
+      }
     }
+  } catch (error: any) {
+    return (window.location.href = "/login");
   }
 }
