@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Layot darkMode={darkMode} setDarkMode={setDarkMode} />}>
           <Route index element={<IndexPage darkMode={darkMode} />} />
-          <Route path='/author' element={<Authors />} />
+          <Route path='/author' element={<Authors  darkMode={darkMode} />} />
           <Route path='/addBook' element={<AddBook darkMode={darkMode} />} />
           <Route path='/addAuthor' element={<AdddAuthor />} />
           <Route path='/profile' element={<Profile darkMode={darkMode} />} />

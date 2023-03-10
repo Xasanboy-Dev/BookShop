@@ -3,11 +3,11 @@
 GET {{authors}}/ HTTP/1.1
 
 ###
-POST {{authors}}/1
+POST {{authors}}/2
 Content-Type: application/json
 
 {
-    "name":"Xasanboy Abdurasulov"
+    "name":"George Washintong"
 }
 
 ###

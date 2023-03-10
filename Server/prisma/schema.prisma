@@ -19,12 +19,15 @@ model books {
   userID      Int
   authorID    Int
   authorName  String
+  imageURL    String   @default("https://placeimg.com/380/230/nature")
 }
 
 model author {
-  name        String @unique
-  id          Int    @id @default(autoincrement())
+  name        String   @unique
+  id          Int      @id @default(autoincrement())
   createdUser Int
+  createdDate DateTime @default(now())
+  authorImage String   @default("https://placeimg.com/380/230/nature")
 }
 
 model user {

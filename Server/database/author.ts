@@ -19,7 +19,7 @@ export async function checkAuthorExist(id: number) {
 }
 
 export async function checkAuthorByName(name: string) {
-  return await prisma.author.findUnique({ where: { name } });
+  return await prisma.author.findFirst({ where: { name } });
 }
 
 export async function renameAuthor(id: number, name: string) {

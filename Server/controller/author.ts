@@ -91,7 +91,11 @@ export async function deletedAuthor(req: Request, res: Response) {
         .status(404)
         .json({ message: "You can n't remove someone's author!" });
     }
-    const { authorID } = req.body;
+    const authorID = req.headers.authorization
+    if (!authorID) {
+      res.status(404).json({ message: "Author is not given!" })
+      return
+    }
     const author = await checkAuthorExist(+authorID);
     if (!author) {
       return res.status(404).json({

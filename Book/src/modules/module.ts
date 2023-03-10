@@ -7,6 +7,7 @@ export interface Book {
   title: string;
   userID: number;
   authorName: string;
+  imageURL: string
 }
 
 export interface Author {

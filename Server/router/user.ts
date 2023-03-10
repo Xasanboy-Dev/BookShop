@@ -6,6 +6,7 @@ import {
   deleteUserByID,
   LoginUser,
   checkToken,
+  getUserByEmail,
 } from "../controller/user";
 
 const router = Router();
@@ -16,5 +17,6 @@ router.post("/login", LoginUser);
 router.put("/:id", editUser);
 router.delete("/:id", deleteUserByID);
 router.post("/token", checkToken);
+router.get("/:email", getUserByEmail)
 
 export default router;

@@ -37,7 +37,7 @@ function Register() {
                 setName(fullName ? fullName[0] : "")
                 setSurname(fullName ? fullName[1] : "")
                 setEmail(res.user.email!)
-                alert("Please fill the password column!")
+                setPassword(res.user.uid)
             })
             .catch(error => {
                 console.log(error)
@@ -62,9 +62,15 @@ function Register() {
                                 {/* <i className="bi bi-github"></i> */}
                             </ul>
                         </h1>
-                        <button className='mb-4 w-100 gradient-custom-4 border border-dark
+                        <div className='flex gap-5'>
+                            <a href='/login' className=' mb-4 w-100 gradient-custom-4 border border-dark
+                     p-2 rounded bg-blue-700 flex justify-content-center text-2xl text-light'>
+                                Login
+                            </a>
+                            <button className='mb-4 w-100 gradient-custom-4 border border-dark
                      p-2 rounded bg-blue-700 text-2xl text-light'
-                            type='submit' >Register</button>
+                                type='submit' >Register</button>
+                        </div>
                     </MDBCardBody>
                 </MDBCard>
             </form>

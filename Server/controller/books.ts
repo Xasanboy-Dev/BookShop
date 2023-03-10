@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { checkUserExist } from "./../database/user";
-import { checkAuthorExist } from "./../database/author";
+import { checkAuthorByName, checkAuthorExist } from "./../database/author";
 import {
   getBooks,
   checkBookExist,
@@ -25,8 +25,8 @@ export async function createBook(req: Request, res: Response) {
     if (!user) {
       return res.status(500).json({ message: "You must to login!" });
     }
-    const { page, description, title, authorID } = req.body;
-    const author = await checkAuthorExist(+authorID);
+    const { page, description, title, authorID, imageUrl } = req.body;
+    const author = await checkAuthorByName(authorID);
     if (!author) {
       return res
         .status(404)
@@ -37,7 +37,8 @@ export async function createBook(req: Request, res: Response) {
       description,
       title,
       author.id,
-      user.id
+      user.id,
+      imageUrl
     );
     res.status(201).json({ message: "Created succesfully", book: createdBook });
   } catch (error: any) {

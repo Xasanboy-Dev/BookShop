@@ -12,7 +12,8 @@ export async function CreateBook(
   description: string,
   title: string,
   authorID: number,
-  userID: number
+  userID: number,
+  image: string
 ) {
   let author = await getAuthorByID(authorID);
   return await prisma.books.create({
@@ -23,6 +24,7 @@ export async function CreateBook(
       userID,
       desc: description,
       authorName: author ? author.name : "",
+      imageURL: `http://localhost:8080/image/${new Date + "-" + authorID}`
     },
   });
 }
