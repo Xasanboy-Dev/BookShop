@@ -1,5 +1,17 @@
+import { useEffect, useState } from "react"
+import { getUserByID } from "../../TypescriptFiles/Auth"
+
 export default function Header({ darkMode, setDarkMode }: { darkMode: Boolean, setDarkMode: (darkMode: Boolean) => void }) {
     let dark = "dark"
+    let id = localStorage.getItem("id")
+    let [bool, setBool] = useState(Boolean)
+    useEffect(() => {
+        const user = getUserByID(+id!)
+        user.then(res => {
+            setBool(res)
+        })
+    }, [])
+    const user = getUserByID
     return (
         <div className={`w-full bg-${darkMode ? 'light' : 'dark'}`}>
             <ul className={`border border-${darkMode ? "dark" : "light"} items-center text-[#a3cbe3] flex justify-content-between py-3`}>
@@ -25,7 +37,7 @@ export default function Header({ darkMode, setDarkMode }: { darkMode: Boolean, s
                     <li className={`cursor-pointer border bg-${dark} text-xl border-${darkMode ? 'dark' : "light"} p-1 rounded`}>
                         <a href="/author">Authors</a>
                     </li>
-                    <li className={`cursor-pointer border items-center bg-${dark} border-${darkMode ? 'dark' : "light"} p-1 rounded-full`}>
+                    <li style={{ display: bool ? "flex" : "none" }} className={`cursor-pointer border items-center bg-${dark} border-${darkMode ? 'dark' : "light"} p-1 rounded-full`}>
                         <a href="/profile">Profile</a>
                     </li>
                 </div>

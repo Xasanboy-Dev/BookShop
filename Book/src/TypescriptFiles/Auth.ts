@@ -76,6 +76,7 @@ export async function checkTokenValid(token: string) {
         if (response.status !== 200) {
           return (window.location.href = "/login");
         }
+        localStorage.setItem("id", response.data.user.id);
         return response.data.user.id;
       } else {
         return (window.location.href = "/login");
@@ -83,5 +84,33 @@ export async function checkTokenValid(token: string) {
     }
   } catch (error: any) {
     return (window.location.href = "/login");
+  }
+}
+
+export async function getUserByID(id: number) {
+  try {
+    const user = await axios.get(`http://localhost:8080/user/${id}`);
+    if (user.status !== 200) {
+      window.location.href = "/login";
+      return false;
+    } else {
+      return true;
+    }
+  } catch (error: any) {
+    return false;
+  }
+}
+
+export async function findUserByID(id: number) {
+  try {
+    const user = await axios.get(`http://localhost:8080/user/${id}`);
+    if (user.status !== 200) {
+      window.location.href = "/login";
+      return false;
+    } else {
+      return user.data.user;
+    }
+  } catch (error: any) {
+    return false;
   }
 }

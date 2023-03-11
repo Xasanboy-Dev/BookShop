@@ -40,4 +40,5 @@ model user {
   password    String
   SavedBooks  Int[]
   SavedAuthor Int[]
+  imageURL    String @default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgTgK1EYhwitE3CCCdbK1bNwFIu-vo2B5dnA&usqp=CAU")
 }

@@ -15,3 +15,14 @@ export interface Author {
   id: number;
   createdUser: number;
 }
+
+export interface User {
+  id:number
+  name:string
+  surname:string
+  email:string 
+  password:string
+  SavedBooks:number[]
+  SavedAuthor:number[]
+  imageURL:string
+}

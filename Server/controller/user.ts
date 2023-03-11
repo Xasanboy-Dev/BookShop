@@ -101,7 +101,7 @@ export async function checkToken(req: Request, res: Response) {
   try {
     if (req.body.token) {
       const token = req.body.token;
-      const validToken = await Verify(token)
+      const validToken = await Verify(token);
       if (!validToken) {
         return res.status(404).json({ message: "You must to login!" });
       } else {
@@ -117,15 +117,24 @@ export async function checkToken(req: Request, res: Response) {
 }
 export async function getUserByEmail(req: Request, res: Response) {
   try {
-    const { email } = req.params
-    const user = await checkUserByEmail(email)
-    if (!user) {
-      return res.status(404).json({ message: "You must to login!" })
+    const { email } = req.params;
+    if (Number(email).toString() == "NaN") {
+      const user = await checkUserByEmail(email);
+      if (!user) {
+        return res.status(404).json({ message: "You must to login!" });
+      } else {
+        return res.status(200).json({ message: "User", user });
+      }
     } else {
-      res.status(200).json({ message: "User", user })
+      const user = await checkUserExist(+email);
+      if (!user) {
+        return res.status(404).json({ message: "Your user is not exist!" });
+      } else {
+        res.status(200).json({ message: "User", user });
+      }
     }
   } catch (error: any) {
-    console.log(error.message)
-    res.status(500).json({ message: "Internal error" })
+    console.log(error.message);
+    res.status(500).json({ message: "Internal error" });
   }
 }
