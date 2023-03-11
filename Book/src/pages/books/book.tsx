@@ -36,6 +36,7 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
     let [url, setUrl] = useState("")
 
     function onhange(e: any | null) {
+        console.log(e)
         setUrl(window.URL.createObjectURL(e.target.files[0]))
     }
     return (
@@ -73,7 +74,7 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
                     </div>
                     <div>
                         <span>Description</span>
-                        <input onChange={(e) => setDesc(e.target.value)} type={"text"} className={`rounded w-[240%] h-[80%] text-center bg-[#a3cbe3] text-light`} />
+                            <input onChange={(e) => setDesc(e)} type={"text"} className={`rounded w-[240%] h-[80%] text-center bg-[#a3cbe3] text-light`} />
                     </div>
                 </div>
                 <div className="flex justify-content-center gap-5">

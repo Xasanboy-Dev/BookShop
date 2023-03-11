@@ -25,9 +25,6 @@ export default function Header({ darkMode, setDarkMode }: { darkMode: Boolean, s
                     <li className={`cursor-pointer border bg-${dark} text-xl border-${darkMode ? 'dark' : "light"} p-1 rounded`}>
                         <a href="/author">Authors</a>
                     </li>
-                    <li className={`cursor-pointer border text-xl bg-${dark} border-${darkMode ? 'dark' : "light"} p-1 rounded`}>
-                        <a href="/addAuthor">Add Author</a>
-                    </li>
                     <li className={`cursor-pointer border items-center bg-${dark} border-${darkMode ? 'dark' : "light"} p-1 rounded-full`}>
                         <a href="/profile">Profile</a>
                     </li>

@@ -59,7 +59,8 @@ export async function createAuthor(
         return false;
       } else {
         alert("Added succesfully!");
-        return true;
+        window.location.href = '/author'
+        return 
       }
     } else {
       alert("You entered wrond date!");
