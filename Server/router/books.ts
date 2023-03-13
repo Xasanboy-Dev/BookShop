@@ -7,19 +7,14 @@ import {
   editBook,
   findBooks,
 } from "../controller/books";
-
-const router = Router();
-const storage = multer.diskStorage({
-  destination: (req: Request, file: any, cb: any) => {
-    cb(null, "uploads");
-  },
-  filename: (req: Request, file: any, cb) => {
-    cb(null, `${Date.now()}-${req.body.author}.png`);
-  },
+import { getLatestBookId } from "../database/books";
+let latest: number;
+getLatestBookId().then((res) => {
+  latest = res + 1;
 });
-const uploadImage = multer({ storage });
+const router = Router();
 router.get("/", findBooks);
-router.post("/:userID", uploadImage.single('avatar'), createBook);
+router.post("/:userID", createBook);
 router.put("/:id", editBook);
 router.delete("/:id", deleteBook);
 

@@ -3,6 +3,8 @@ import { Author } from "./../../modules/module";
 import { getAuthor } from "../../TypescriptFiles/author";
 import { checkTokenValid } from "../../TypescriptFiles/Auth";
 import { createBook } from "../../TypescriptFiles/books";
+import axios from "axios";
+import { async } from "@firebase/util";
 const addBook = ({ darkMode }: { darkMode: Boolean }) => {
   let [title, setTitle] = useState("");
   let [author, setAuthor] = useState("");
@@ -34,12 +36,16 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
   }, []);
 
   let [url, setUrl] = useState("");
-
-  function onhange(e: any | null) {
-    console.log(e);
-    setUrl(window.URL.createObjectURL(e.target.files[0]));
+  let [data, setData] = useState<any>()
+  async function onhange(e: any | null) {
+    let data = new FormData()
+    data.append("avatar", e)
+    const blob = new Blob([e], ({ type: "type/text" }))
+    setUrl(URL.createObjectURL(blob))
+    const response = await axios.post(`http://localhost:8080/image/books/${userID}`, data, { headers: { Authorization: userID } })
+    alert(response.data)
   }
-  return (
+  return (  
     <div
       style={{ height: innerHeight }}
       className={` text-[#a3cbe3] bg-${darkMode ? "light" : "dark"}`}
@@ -53,9 +59,8 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
             <label className="block">Title</label>
             <input
               onChange={(e) => setTitle(e.target.value)}
-              className={`text-light rounded block w-[200%] bg-[#a3cbe3] text-light border border-${
-                darkMode ? "dark" : "light"
-              } `}
+              className={`text-light rounded block w-[200%] bg-[#a3cbe3] text-light border border-${darkMode ? "dark" : "light"
+                } `}
               type={"text"}
             />
           </div>
@@ -63,9 +68,8 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
             <label className="block">Author</label>
             <select
               onChange={(e) => setAuthor(e.target.value)}
-              className={`rounded block w-[200%] bg-[#a3cbe3] text-light border border-${
-                darkMode ? "dark" : "light"
-              } `}
+              className={`rounded block w-[200%] bg-[#a3cbe3] text-light border border-${darkMode ? "dark" : "light"
+                } `}
             >
               <option disabled selected>
                 Select author:
@@ -81,18 +85,16 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
             <label className="block">Page Count</label>
             <input
               onChange={(e) => setPage(e.target.value)}
-              className={`rounded block w-[200%] bg-[#a3cbe3] text-light border border-${
-                darkMode ? "dark" : "light"
-              } `}
+              className={`rounded block w-[200%] bg-[#a3cbe3] text-light border border-${darkMode ? "dark" : "light"
+                } `}
               type={"number"}
             />
           </div>
         </div>
         <div className="flex gap-5 m-5 text-2xl">
           <div
-            className={`border rounded border-${
-              darkMode ? "dark" : "light"
-            } text-[#a3cbe3] bg-${darkMode ? "light" : "dark"}`}
+            className={`border rounded border-${darkMode ? "dark" : "light"
+              } text-[#a3cbe3] bg-${darkMode ? "light" : "dark"}`}
           >
             <label
               htmlFor="file-upload"
@@ -109,7 +111,7 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
               />
             </label>
             <input
-              onChange={(e) => onhange(e)}
+              onChange={(e) => onhange(e.target.files ? e.target.files[0] : alert("Hello"))}
               accept="image/*"
               name="avatar"
               id="file-upload"
@@ -133,10 +135,9 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
             Cancel
           </button>
           <button
-            onClick={() => createBook(title, author, +page, url, desc, +userID)}
+            onClick={() => createBook(title, author, +page, desc, +userID, url)}
             className="border text-light rounded py-1 px-3 flex  items-center bg-green-700 "
           >
-            {" "}
             Create
           </button>
         </div>

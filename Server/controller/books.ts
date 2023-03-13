@@ -1,13 +1,20 @@
 import { Request, Response } from "express";
 import { checkUserExist } from "./../database/user";
-import { checkAuthorByName, checkAuthorExist } from "./../database/author";
+import {
+  checkAuthorByName,
+  checkAuthorExist,
+  findAuthors,
+  getAuthorByID,
+} from "./../database/author";
 import {
   getBooks,
   checkBookExist,
   CreateBook,
   updateBook,
   removeBook,
+  getLatestBookId,
 } from "../database/books";
+import images, { image } from "../router/images";
 export async function findBooks(req: Request, res: Response) {
   try {
     const books = await getBooks();
@@ -25,20 +32,19 @@ export async function createBook(req: Request, res: Response) {
     if (!user) {
       return res.status(500).json({ message: "You must to login!" });
     }
-    const { page, description, title, authorID, imageUrl } = req.body;
-    const author = await checkAuthorByName(authorID);
-    if (!author) {
+    const { page, description, title, author } = req.body;
+    const aboutAuthor = await checkAuthorByName(author);
+    if (!aboutAuthor) {
       return res
         .status(404)
         .json({ message: "Please check your author. And try again later!" });
     }
     const createdBook = await CreateBook(
-      page,
+      +page,
       description,
       title,
-      author.id,
-      user.id,
-      imageUrl
+      +aboutAuthor.id,
+      +userID
     );
     res.status(201).json({ message: "Created succesfully", book: createdBook });
   } catch (error: any) {

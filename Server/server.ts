@@ -17,6 +17,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use(cors());
 
 server.use(express.static("uploads"));
+server.use(express.static("uploadBooks"))
 
 server.use("/user", user);
 server.use("/books", books);

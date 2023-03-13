@@ -12,10 +12,11 @@ export async function CreateBook(
   description: string,
   title: string,
   authorID: number,
-  userID: number,
-  image: string
+  userID: number
 ) {
   let author = await getAuthorByID(authorID);
+  let latest: any = await prisma.books.findMany();
+  latest = latest[latest.length - 1].id;
   return await prisma.books.create({
     data: {
       authorID,
@@ -24,7 +25,7 @@ export async function CreateBook(
       userID,
       desc: description,
       authorName: author ? author.name : "",
-      imageURL: `http://localhost:8080/image/${new Date + "-" + authorID}`
+      imageURL: `http://localhost:8080/books${latest}.png`,
     },
   });
 }
@@ -55,4 +56,9 @@ export async function updateBook(
 
 export async function removeBook(id: number) {
   return await prisma.books.delete({ where: { id } });
+}
+
+export async function getLatestBookId() {
+  let latest = await prisma.books.findMany();
+  return latest[latest.length - 1].id;
 }

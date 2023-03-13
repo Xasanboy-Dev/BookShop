@@ -2,7 +2,7 @@ import { User } from "./../../modules/module";
 import { useEffect, useState } from "react";
 import { findUserByID } from "../../TypescriptFiles/Auth";
 import { changeInputFule } from "../../TypescriptFiles/fireBase";
-import { async } from "@firebase/util";
+import { saveDataUser } from "../../TypescriptFiles/user";
 
 export default function Profile({ darkMode }: { darkMode: Boolean }) {
   let photo =
@@ -21,7 +21,8 @@ export default function Profile({ darkMode }: { darkMode: Boolean }) {
   }
   let [user, setUser] = useState<User>();
   if (!id) {
-    return (window.location.href = "/login");
+    (window.location.href = "/login");
+    return <div></div>
   } else {
     useEffect(() => {
       let userBio = findUserByID(json);
@@ -49,35 +50,30 @@ export default function Profile({ darkMode }: { darkMode: Boolean }) {
         style={{ height: innerHeight }}
       >
         <h1
-          className={`text-${
-            darkMode ? "dark" : "light"
-          } w-full text-center text-4xl py-4  `}
+          className={`text-${darkMode ? "dark" : "light"
+            } w-full text-center text-4xl py-4  `}
         >
           Profile
         </h1>
         <div
-          className={`flex justify-content-between px-[15%] bg-${
-            darkMode ? "light" : "dark"
-          }`}
+          className={`flex justify-content-between px-[15%] bg-${darkMode ? "light" : "dark"
+            }`}
         >
           <ul>
             <li className="py-2">
               <div className={`flex items-center`}>
                 <label
                   htmlFor="name"
-                  className={`mx-4 my-4 text-3xl text-${
-                    darkMode ? "dark" : "light"
-                  }`}
+                  className={`mx-4 my-4 text-3xl text-${darkMode ? "dark" : "light"
+                    }`}
                 >
                   Name:
                 </label>
                 <input
                   id="name"
-                  className={`px-2 py-1 border text-2xl border-${
-                    darkMode ? "dark" : "light"
-                  } bg-${darkMode ? "dark" : "light"} text-${
-                    darkMode ? "light" : "dark"
-                  } rounded`}
+                  className={`px-2 py-1 border text-2xl border-${darkMode ? "dark" : "light"
+                    } bg-${darkMode ? "dark" : "light"} text-${darkMode ? "light" : "dark"
+                    } rounded`}
                   value={name}
                   onChange={(e: any) => {
                     setChange(e.target.value !== user?.name ? true : false);
@@ -89,19 +85,16 @@ export default function Profile({ darkMode }: { darkMode: Boolean }) {
               <div className={`flex  items-center`}>
                 <label
                   htmlFor="surname"
-                  className={`mx-1 my-4 text-3xl text-${
-                    darkMode ? "dark" : "light"
-                  }`}
+                  className={`mx-1 my-4 text-3xl text-${darkMode ? "dark" : "light"
+                    }`}
                 >
                   Surname:
                 </label>
                 <input
                   id="surname"
-                  className={`px-2 py-1 border text-2xl border-${
-                    darkMode ? "dark" : "light"
-                  } bg-${darkMode ? "dark" : "light"} text-${
-                    darkMode ? "light" : "dark"
-                  } rounded`}
+                  className={`px-2 py-1 border text-2xl border-${darkMode ? "dark" : "light"
+                    } bg-${darkMode ? "dark" : "light"} text-${darkMode ? "light" : "dark"
+                    } rounded`}
                   value={surname}
                   onChange={(e: any) => {
                     setChange(e.target.value !== user?.surname ? true : false);
@@ -115,19 +108,16 @@ export default function Profile({ darkMode }: { darkMode: Boolean }) {
               <div className={`flex  items-center`}>
                 <label
                   htmlFor="surname"
-                  className={`mx-[28px] my-4 text-3xl text-${
-                    darkMode ? "dark" : "light"
-                  }`}
+                  className={`mx-[28px] my-4 text-3xl text-${darkMode ? "dark" : "light"
+                    }`}
                 >
                   Email:
                 </label>
                 <input
                   id="surname"
-                  className={`px-2 py-1 border text-2xl border-${
-                    darkMode ? "dark" : "light"
-                  } bg-${darkMode ? "dark" : "light"} text-${
-                    darkMode ? "light" : "dark"
-                  } rounded`}
+                  className={`px-2 py-1 border text-2xl border-${darkMode ? "dark" : "light"
+                    } bg-${darkMode ? "dark" : "light"} text-${darkMode ? "light" : "dark"
+                    } rounded`}
                   value={email}
                   type={`email`}
                   onChange={(e: any) => {
@@ -146,11 +136,9 @@ export default function Profile({ darkMode }: { darkMode: Boolean }) {
                 </label>
                 <input
                   id="surname"
-                  className={`px-2 py-1 border text-2xl border-${
-                    darkMode ? "dark" : "light"
-                  } bg-${darkMode ? "dark" : "light"} text-${
-                    darkMode ? "light" : "dark"
-                  } rounded`}
+                  className={`px-2 py-1 border text-2xl border-${darkMode ? "dark" : "light"
+                    } bg-${darkMode ? "dark" : "light"} text-${darkMode ? "light" : "dark"
+                    } rounded`}
                   value={password}
                   type={`password`}
                   onChange={(e: any) => {
@@ -165,13 +153,12 @@ export default function Profile({ darkMode }: { darkMode: Boolean }) {
           <div
             onMouseOver={() => setImage(photo)}
             onMouseOut={() => setImage(FirstPhoto)}
-            className="border border-dark w-full ml-[20%] mr-[20%]"
+            className="my-5 border border-dark w-full ml-[20%] mr-[20%]"
           >
             <label htmlFor="file-upload">
               <img
-                className={` cursor-${
-                  image == photo ? "move w-[65%]" : "move"
-                } rounded-3xl h-[125%]`}
+                className={` cursor-${image == photo ? "move w-[65%]" : "move"
+                  } rounded-3xl h-[125%]`}
                 src={`${image}`}
               />
             </label>
@@ -186,22 +173,27 @@ export default function Profile({ darkMode }: { darkMode: Boolean }) {
             type="file"
           />
         </div>
-        <div className="flex justify-center gap-5">
+        <div className="mt-5 flex justify-center gap-5">
           <a
-            className={`text-light  py-1 px-3 rounded  text-3xl ${
-              change
-                ? "cursor-pointer bg-green-800"
-                : " cursor-not-allowed text-dark text	bg-green-400"
-            }`}
+            onClick={() => saveDataUser(name, surname, email, password, user!)}
+            className={`text-light  py-1 px-3 rounded  text-3xl ${change
+              ? "cursor-pointer bg-green-800"
+              : " cursor-not-allowed text-dark text	bg-green-400"
+              }`}
           >
             Save
           </a>
           <a
-            className={`text-light  py-1 px-3 rounded  text-3xl ${
-              change
-                ? "cursor-pointer bg-red-800"
-                : " cursor-not-allowed text-dark text	bg-red-400"
-            }`}
+            onClick={() => {
+              setName(user?.name!)
+              setEmail(user?.email!)
+              setSurname(user?.email!)
+              setPassword(user?.password!)
+            }}
+            className={`text-light  py-1 px-3 rounded  text-3xl ${change
+              ? "cursor-pointer bg-red-800"
+              : " cursor-not-allowed text-dark text	bg-red-400"
+              }`}
           >
             Cancel
           </a>

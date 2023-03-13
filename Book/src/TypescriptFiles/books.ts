@@ -1,5 +1,4 @@
 import axios from "axios";
-import fs from "fs"
 
 export async function getBooks() {
   const response = await axios.get(`http://localhost:8080/books`);
@@ -22,19 +21,30 @@ export async function removeBook(bookID: number, userID: number) {
   }
 }
 
-
-export async function createBook(title: string, author: string, pageCount: number, imageUrl: string, description: string, userID: number) {
-  if (!title || !author || !pageCount || !imageUrl || !description) {
-    alert("You must to fill all the gaps")
-    return
+export async function createBook(
+  title: string,
+  author: string,
+  pageCount: number,
+  description: string,
+  userID: number,
+  image: any
+) {
+  if (!title || !author || !pageCount || !image || !description) {
+    alert("You must to fill all the gaps");
+    return;
   } else {
-    const result = await axios.post(`http://localhost:8080/books/${userID}`, { page: pageCount, description, title, author, imageUrl })
+    const result = await axios.post(`http://localhost:8080/books/${userID}`, {
+      page: pageCount,
+      description,
+      title,
+      author,
+    });
     if (result.status !== 201) {
-      console.log(result.data)
-      alert("Your book is not added!")
-      return
+      console.log(result.data);
+      alert("Your book is not added!");
+      return;
     } else {
-      alert("Added succesfully!")
+      alert("Added succesfully!");
     }
   }
 }
