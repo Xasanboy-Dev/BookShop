@@ -4,11 +4,9 @@ import { getAuthor } from "../../TypescriptFiles/author";
 import { checkTokenValid } from "../../TypescriptFiles/Auth";
 import { createBook } from "../../TypescriptFiles/books";
 import axios from "axios";
-import { async } from "@firebase/util";
 const addBook = ({ darkMode }: { darkMode: Boolean }) => {
   let [title, setTitle] = useState("");
   let [author, setAuthor] = useState("");
-  let [date, setDate] = useState("");
   let [page, setPage] = useState("");
   let [desc, setDesc] = useState("");
   let [userID, setUserId] = useState("");
@@ -38,14 +36,24 @@ const addBook = ({ darkMode }: { darkMode: Boolean }) => {
   let [url, setUrl] = useState("");
   let [data, setData] = useState<any>()
   async function onhange(e: any | null) {
+    const latest = await axios.get(`http://localhost:8080/books/latest`)
     let data = new FormData()
     data.append("avatar", e)
     const blob = new Blob([e], ({ type: "type/text" }))
     setUrl(URL.createObjectURL(blob))
-    const response = await axios.post(`http://localhost:8080/image/books/${userID}`, data, { headers: { Authorization: userID } })
+    const response = await axios.post(`http://localhost:8080/image/books/${userID}`,
+      data,
+      {
+        headers:
+        {
+          Authorization: userID,
+          Accept: latest.data.id
+        }
+      }
+    )
     alert(response.data)
   }
-  return (  
+  return (
     <div
       style={{ height: innerHeight }}
       className={` text-[#a3cbe3] bg-${darkMode ? "light" : "dark"}`}

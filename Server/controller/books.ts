@@ -14,11 +14,11 @@ import {
   removeBook,
   getLatestBookId,
 } from "../database/books";
-import images, { image } from "../router/images";
+import { responseEncoding } from "axios";
 export async function findBooks(req: Request, res: Response) {
   try {
-    const books = await getBooks();
-    res.status(200).json({ message: "All books", books });
+    const allBooks = await getBooks();
+    res.status(200).json({ message: "All books", books: allBooks });
   } catch (error: any) {
     console.log(error.message);
     res.status(500).json({ message: "Internal error" });
@@ -115,5 +115,23 @@ export async function deleteBook(req: Request, res: Response) {
   } catch (error: any) {
     console.log(error.message);
     res.status(500).json({ message: "Internal error" });
+  }
+}
+
+export async function getLatestBook(req: Request, res: Response) {
+  try {
+    const latestBookID = await getLatestBookId();
+    res.status(200).json({ message: "Latest Book ID", id: latestBookID });
+  } catch (error: any) {
+    console.log(error.message);
+    res.status(500).json({ message: "Internal error" });
+  }
+}
+
+export async function getSelectedBookById(req: Request, res: Response){
+  try {
+    
+  } catch (error:any) {
+    console.log)
   }
 }

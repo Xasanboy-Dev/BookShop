@@ -10,6 +10,8 @@ import Authors from './pages/author/author'
 import Layot from './pages/Header/Layout'
 import { useState } from 'react'
 import Profile from "./pages/user/profile"
+import SelectedBook from "./pages/books/selectedBook"
+import { ViewAuthor } from './pages/author/ViewAuthor'
 
 initializeApp(config.firebaseConfig)
 
@@ -21,8 +23,10 @@ function App() {
         <Route path='/' element={<Layot darkMode={darkMode} setDarkMode={setDarkMode} />}>
           <Route index element={<IndexPage darkMode={darkMode} />} />
           <Route path='/author' element={<Authors darkMode={darkMode} />} />
+          <Route path='/viewAuthor' element={<ViewAuthor authorID={0} darkMode={darkMode} />} />
           <Route path='/addBook' element={<AddBook darkMode={darkMode} />} />
           <Route path='/profile' element={<Profile darkMode={darkMode} />} />
+          <Route path='/book' element={<SelectedBook selectedBook={-2} darkMode={darkMode} />} />
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />

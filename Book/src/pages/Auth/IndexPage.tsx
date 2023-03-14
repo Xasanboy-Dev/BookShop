@@ -1,11 +1,13 @@
 import { Book } from "../../modules/module";
 import { useEffect, useState } from "react";
 import { getBooks, removeBook } from "../../TypescriptFiles/books";
+import SelectedBook from "../books/selectedBook";
 
 export default function IndexPage({ darkMode }: { darkMode: Boolean }) {
   let userID = 0;
   let uuid = localStorage.getItem("uuid");
   let full = "";
+  let [selected, setSelected] = useState<number>(1)
   if (uuid) {
     userID = JSON.parse(uuid).userID;
   }
@@ -43,12 +45,12 @@ export default function IndexPage({ darkMode }: { darkMode: Boolean }) {
       <div className="px-[50px]  grid gap-5 grid-cols-4">
         {books.map((book: Book) => (
           <div
-            onClick={() => { }}
+            onClick={() => alert(book.id)}
             className={`border cursor-pointer bg-dark border-${darkMode ? "dark" : "light"
-              } rounded py-3 px-2`}
+              } rounded py-3 px-2 shadow-lg`}
           >
-            <h1 className="border p-2 rounded text-2xl">{book.title}</h1>
-            <img className="w-full" onClick={() => alert(book.imageURL)} src={`${book.imageURL}`} alt={`${book.imageURL}`} />
+            <h1 className={`border p-2 rounded text-2xl text-light`}>{book.title}</h1>
+            <img className="w-full" src={`${book.imageURL}`} alt={`${book.imageURL}`} />
             <div className=" border p-3 rounded flex justify-content-between px-3">
               <button
                 onClick={() => alert(`clicked in ${book.id}`)}

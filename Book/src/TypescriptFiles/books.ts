@@ -1,7 +1,8 @@
+import { async } from "@firebase/util";
 import axios from "axios";
 
 export async function getBooks() {
-  const response = await axios.get(`http://localhost:8080/books`);
+  const response = await axios.get(`http://localhost:8080/books/all`);
   return response.data.books;
 }
 
@@ -47,4 +48,17 @@ export async function createBook(
       alert("Added succesfully!");
     }
   }
+}
+
+export async function checkBookExist(id: number) {
+  try {
+    return await axios.get(`http://localhost:8080/books/${id}`);
+  } catch (error: any) {
+    alert(error.message);
+    return (window.location.href = "/login");
+  }
+}
+
+export async function getDataAboutSelected(id: number) {
+  axios.get(`http://localhost:8080/books/${id}`);
 }

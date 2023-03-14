@@ -25,7 +25,7 @@ export async function CreateBook(
       userID,
       desc: description,
       authorName: author ? author.name : "",
-      imageURL: `http://localhost:8080/books${latest}.png`,
+      imageURL: `http://localhost:8080/books${+latest + 1}.png`,
     },
   });
 }
