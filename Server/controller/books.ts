@@ -14,7 +14,6 @@ import {
   removeBook,
   getLatestBookId,
 } from "../database/books";
-import { responseEncoding } from "axios";
 export async function findBooks(req: Request, res: Response) {
   try {
     const allBooks = await getBooks();
@@ -128,10 +127,21 @@ export async function getLatestBook(req: Request, res: Response) {
   }
 }
 
-export async function getSelectedBookById(req: Request, res: Response){
+export async function getSelectedBookById(req: Request, res: Response) {
   try {
-    
-  } catch (error:any) {
-    console.log)
+    const { id } = req.params
+    if (id) {
+      const book = await checkBookExist(+id)
+      if (book) {
+        return res.status(200).json({ message: `Book by selected id:${id}`, book })
+      } else {
+        return res.status(404).json({ message: "Your book is not exist!: " + id })
+      }
+    } else {
+      return res.status(404).json({ message: "You must to send book id!" })
+    }
+  } catch (error: any) {
+    console.log(error.message)
+    res.status(500).json({ message: "Internal error" })
   }
 }

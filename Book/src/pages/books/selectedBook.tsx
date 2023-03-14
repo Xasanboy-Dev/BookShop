@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Author, Book } from "./../../modules/module";
-import { createBook, getBooks } from "../../TypescriptFiles/books";
+import { Author } from "./../../modules/module";
+import { createBook, getBooks, getDataAboutSelected } from "../../TypescriptFiles/books";
 import axios from "axios";
 import { getAuthor } from "../../TypescriptFiles/author";
 const selectedBook = ({ darkMode, selectedBook }: { darkMode: Boolean, selectedBook: number }) => {
@@ -20,8 +20,19 @@ const selectedBook = ({ darkMode, selectedBook }: { darkMode: Boolean, selectedB
         });
     }, []);
 
-    function getDataAboutSelectedBook(id:number){
-        
+    useEffect(() => {
+        const books = getDataAboutSelectedBook(selectedBook)
+        books.then(res => {
+            console.log(res)
+        })
+    }, [])
+
+    async function getDataAboutSelectedBook(id: number) {
+        if (Number(id).toString() !== "NaN") {
+            return await getDataAboutSelected(id)
+        } else {
+            alert("Your id is not a number!")
+        }
     }
 
     async function onhange(e: any | null) {

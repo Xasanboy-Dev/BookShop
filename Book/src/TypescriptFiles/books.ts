@@ -60,5 +60,15 @@ export async function checkBookExist(id: number) {
 }
 
 export async function getDataAboutSelected(id: number) {
-  axios.get(`http://localhost:8080/books/${id}`);
+  try {
+    const book = await axios.get(`http://localhost:8080/books/${id}`)
+    if (book.status !== 200) {
+      return false
+    } else {
+      return book
+    }
+  } catch (error: any) {
+    window.location.href = '/login'
+    return false
+  }
 }
