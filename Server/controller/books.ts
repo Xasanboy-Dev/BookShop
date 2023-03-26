@@ -128,10 +128,10 @@ export async function getLatestBook(req: Request, res: Response) {
   }
 }
 
-export async function getSelectedBookById(req: Request, res: Response){
+export async function getSelectedBookById(req: Request, res: Response) {
   try {
-    
-  } catch (error:any) {
-    console.log)
+  } catch (error: any) {
+    console.log(error.message);
+    res.status(500).json({ message: "Internal error" });
   }
 }
