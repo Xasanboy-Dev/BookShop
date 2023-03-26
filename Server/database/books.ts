@@ -60,5 +60,5 @@ export async function removeBook(id: number) {
 
 export async function getLatestBookId() {
   let latest = await prisma.books.findMany();
-  return latest[latest.length - 1].id;
+    return latest[latest.length - 1]?.id;
 }

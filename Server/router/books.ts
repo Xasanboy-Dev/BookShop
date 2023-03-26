@@ -5,6 +5,7 @@ import {
   editBook,
   findBooks,
   getLatestBook,
+  getSelectedBookById,
 } from "../controller/books";
 import { getLatestBookId } from "../database/books";
 let latest: number;
@@ -18,5 +19,5 @@ router.get("/:id", findBooks);
 router.post("/:userID", createBook);
 router.put("/:id", editBook);
 router.delete("/:id", deleteBook);
-router.get("/Selected",)
+router.get("/Selected", getSelectedBookById)
 export default router;
